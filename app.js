@@ -18,7 +18,7 @@ const passport=require("passport");
 const user=require("./models/user.js");
 const LocalStrategy=require("passport-local");
 
-//const dbURL=process.env.ATLASDB_URL;
+const dbURL=process.env.ATLASDB_URL;
 
 //router
 const listingsRouter=require("./routes/listing.js");
@@ -40,7 +40,7 @@ main().then(()=>{console.log("connection is established");
 .catch((err)=>{console.log(err);
 });
 async function main(){
-   await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+   await mongoose.connect(dbURL);
 };
 
 app.listen("8080",(req,res)=>{
@@ -48,7 +48,7 @@ app.listen("8080",(req,res)=>{
 });
 
 const store=MongoStore.create({
-    mongoUrl:'mongodb://127.0.0.1:27017/wanderlust',
+    mongoUrl:dbURL,
     crypto:{
         secret:process.env.SECRET,
     },
